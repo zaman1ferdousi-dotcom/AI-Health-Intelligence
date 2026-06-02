@@ -5,88 +5,106 @@ import { useState, useEffect } from "react";
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const TICKER_ITEMS = [
-  "FDA clears AI diagnostic tool for early-stage pancreatic cancer detection",
-  "CMS proposes new value-based care reimbursement models",
-  "Epic Systems integrates AI for clinical documentation automation",
-  "NIH allocates $2.1B for digital health and genomics research",
-  "Medicare Advantage enrollment continues to grow nationwide",
-  "ONC approves landmark interoperability rule for EHR data sharing",
-  "Digital therapeutics market sees continued investment growth",
-  "Johns Hopkins launches AI-powered sepsis prediction platform",
-  "HHS releases updated cybersecurity framework for healthcare orgs",
-  "Senate committee advances bipartisan health data privacy legislation",
+  "FDA January 2026: clinical decision support AI guidance removes many tools from premarket device oversight",
+  "OCR April 2026: four ransomware HIPAA settlements, $1.165M collected, 427,000 patient records exposed",
+  "CMS WISeR Model live January 1 — AI prior authorization now in six states for original Medicare",
+  "ONC: nearly 500 million records exchanged through TEFCA; first information blocking enforcement notices issued",
+  "Hospital operating margins hit -0.6% in January 2026 per Strata national data — drug costs up 7.6%",
+  "HHS HIPAA Security Rule final rule expected May 2026 — mandatory MFA, encryption, 72-hour reporting",
+  "Epic native AI Charting launched February 2026, disrupting standalone ambient scribe market",
+  "White House AI Action Plan released March 20, 2026 — light federal touch, state authority preserved",
+  "Blue Cross Blue Shield analysis: AI-enabled hospital coding linked to $2B+ in additional claims spending",
+  "ONC releases draft USCDI v7 January 29, 2026 — 29 new data elements proposed for interoperability",
 ];
+
+// ─── REAL PUBLISHED ARTICLES ───────────────────────────────────────────────────
+// All articles are real, sourced, and published by AI Health Intelligence.
 
 const ARTICLES = [
   {
-    id: 1, featured: true, emoji: "🧠",
-    category: "AI IN HEALTHCARE",
-    title: "How Large Language Models Are Transforming Clinical Decision Support",
-    excerpt: "A deep dive into how health systems are deploying LLMs at the point of care — and what the evidence actually shows about outcomes, liability, and physician trust.",
-    date: "May 29, 2026", read: "12 min read", slug: "llms-clinical-decision-support",
+    id: 1, featured: true, emoji: "⚖️",
+    category: "AI IN HEALTHCARE · HEALTH POLICY",
+    title: "The Governance Reckoning: Why Healthcare's AI Boom Is Outrunning Its Safeguards",
+    excerpt: "Hospitals are deploying AI at unprecedented speed. The compliance infrastructure to manage it has not kept pace. From ambient documentation to shadow AI, the gap between adoption and oversight is now a material institutional risk.",
+    date: "June 2, 2026", read: "12 min read",
+    slug: "healthcare-ai-governance-reckoning-2026",
+    free: true,
+    label: "FREE TO READ",
   },
   {
-    id: 2, emoji: "💰",
+    id: 2, emoji: "🔐",
+    category: "HIPAA & COMPLIANCE",
+    title: "The HIPAA Security Rule's Biggest Overhaul in 23 Years Is Here",
+    excerpt: "HHS targets May 2026 to finalize the first major HIPAA Security Rule update since 2003. Mandatory encryption, MFA on every system, 72-hour breach reporting, and annual pen testing — with $9B in projected year-one compliance costs.",
+    date: "June 2, 2026", read: "14 min read",
+    slug: "hipaa-security-rule-overhaul-2026",
+    free: false,
+    label: "PREMIUM",
+  },
+  {
+    id: 3, emoji: "💰",
     category: "HOSPITAL FINANCE",
-    title: "The Hidden Costs of AI Implementation in Health Systems",
-    excerpt: "Beyond licensing fees: workforce retraining, integration overhead, and the 18-month ROI reality that CFOs are not talking about publicly.",
-    date: "May 27, 2026", read: "9 min read", slug: "hidden-costs-ai-implementation",
+    title: "Hospital Operating Margins Went Negative in January 2026. The Worst Is Not Here Yet.",
+    excerpt: "Drug costs rose 7.6%, supply costs 7.8%, and the median operating margin hit -0.6% in January. Against that backdrop, the One Big Beautiful Bill Act threatens Medicaid cuts that 66% of healthcare finance professionals call their top concern.",
+    date: "June 2, 2026", read: "13 min read",
+    slug: "hospital-margins-negative-2026",
+    free: false,
+    label: "PREMIUM",
   },
   {
-    id: 3, emoji: "🏛️",
-    category: "HEALTH POLICY",
-    title: "CMS 2026 Physician Fee Schedule: What Is Actually in It",
-    excerpt: "A plain-English breakdown of the 1,400-page rule, covering reimbursement shifts, telehealth permanency, and the new AI billing codes that flew under the radar.",
-    date: "May 25, 2026", read: "15 min read", slug: "cms-2026-physician-fee-schedule",
+    id: 4, emoji: "🤖",
+    category: "AI IN HEALTHCARE · HEALTH POLICY",
+    title: "The AI Prior Authorization Arms Race Has Reached the Hospital Finance Department",
+    excerpt: "CMS launched WISeR on January 1 in six states. March 31 brought the first-ever public PA metrics. Blue Cross Blue Shield attributes $2B in excess claims to AI-enabled hospital coding. Both sides are now using AI — with patients caught in the middle.",
+    date: "June 2, 2026", read: "12 min read",
+    slug: "ai-prior-authorization-arms-race-2026",
+    free: false,
+    label: "PREMIUM",
   },
   {
-    id: 4, emoji: "📊",
-    category: "DIGITAL HEALTH",
-    title: "RPM Adoption Rates Have Plateaued. Here Is Why — and What Is Next",
-    excerpt: "Remote patient monitoring hit a ceiling. New data reveals the interoperability gaps, reimbursement confusion, and patient friction driving stagnation.",
-    date: "May 22, 2026", read: "8 min read", slug: "rpm-adoption-plateau",
-  },
-  {
-    id: 5, emoji: "🔬",
-    category: "RESEARCH BRIEF",
-    title: "AI Radiology Tools: A Systematic Review of Clinical Validation Studies",
-    excerpt: "We analyzed 47 peer-reviewed studies on AI-assisted radiology. The results are more nuanced — and more promising — than the vendor narratives suggest.",
-    date: "May 20, 2026", read: "18 min read", slug: "ai-radiology-systematic-review",
+    id: 5, emoji: "🔒",
+    category: "HIPAA & COMPLIANCE · AI IN HEALTHCARE",
+    title: "Your Clinicians Are Using AI You Did Not Approve. HIPAA Says That Is Your Problem.",
+    excerpt: "63% of healthcare organizations lack AI governance policies. One audit found 23% of clinicians using ChatGPT for documentation. When patient data enters a consumer AI tool without a BAA, that is a HIPAA breach — and most hospitals have no idea it is happening.",
+    date: "June 2, 2026", read: "12 min read",
+    slug: "shadow-ai-hipaa-compliance-2026",
+    free: false,
+    label: "PREMIUM",
   },
 ];
 
 const CATEGORIES = [
-  { emoji: "🤖", name: "AI in Healthcare", count: "142 articles" },
-  { emoji: "💵", name: "Hospital Finance", count: "89 articles" },
-  { emoji: "🏛️", name: "Health Policy", count: "114 articles" },
-  { emoji: "💾", name: "Health Informatics", count: "97 articles" },
-  { emoji: "📱", name: "Digital Health", count: "128 articles" },
+  { emoji: "🤖", name: "AI in Healthcare", count: "Coverage area" },
+  { emoji: "💵", name: "Hospital Finance", count: "Coverage area" },
+  { emoji: "🏛️", name: "Health Policy", count: "Coverage area" },
+  { emoji: "💾", name: "Health Informatics", count: "Coverage area" },
+  { emoji: "📱", name: "Digital Health", count: "Coverage area" },
 ];
 
 const REPORTS = [
   {
-    emoji: "🧬", tag: "MARKET REPORT", lock: true,
-    title: "State of AI in Healthcare 2026: Adoption, Outcomes and Investment Trends",
-    desc: "Comprehensive analysis of AI deployment across 500+ U.S. health systems. Covers clinical AI, administrative automation, ambient documentation, and predictive analytics with ROI benchmarks.",
-    pages: "94 pages", date: "May 2026",
+    emoji: "⚖️", tag: "AI GOVERNANCE", lock: false,
+    title: "The Governance Reckoning: Why Healthcare's AI Boom Is Outrunning Its Safeguards",
+    desc: "An in-depth analysis of how ambient AI deployment, FDA regulatory changes, shadow AI risks, and the EHR vendor AI consolidation are creating a governance crisis that hospital executives can no longer defer.",
+    pages: "Full article", date: "June 2, 2026",
   },
   {
-    emoji: "💼", tag: "FINANCE ANALYSIS", lock: true,
-    title: "Hospital Operating Margins Report Q1 2026: Post-Pandemic Recovery Index",
-    desc: "Deep financial analysis of not-for-profit and for-profit hospital systems. Labor cost trends, payer mix shifts, and the technology investments reshaping the bottom line.",
-    pages: "68 pages", date: "April 2026",
+    emoji: "🔐", tag: "HIPAA & COMPLIANCE", lock: true,
+    title: "The HIPAA Security Rule Overhaul: Complete Compliance Guide for Hospital Leaders",
+    desc: "Every proposed change vs. current requirements. OCR enforcement pattern analysis. Cost modeling by hospital size. A 240-day compliance roadmap. Strategic guidance for CISOs, compliance officers, and boards.",
+    pages: "Premium article", date: "June 2, 2026",
   },
   {
-    emoji: "📋", tag: "POLICY BRIEF", lock: false,
-    title: "HIPAA in the Age of AI: Compliance Frameworks for Generative AI Deployments",
-    desc: "A practical compliance guide for health systems deploying LLMs and AI tools. Covers de-identification standards, BAA requirements, and emerging state AI legislation.",
-    pages: "42 pages", date: "March 2026",
+    emoji: "💰", tag: "HOSPITAL FINANCE", lock: true,
+    title: "Hospital Margins 2026: Financial Survival Guide for Health System CFOs",
+    desc: "Strata and Kaufman Hall data analysis, One Big Beautiful Bill Medicaid impact scenarios, drug cost trend analysis, CMS site-neutral payment modeling, and a payer mix stress-testing framework.",
+    pages: "Premium article", date: "June 2, 2026",
   },
   {
-    emoji: "🌐", tag: "TREND ANALYSIS", lock: true,
-    title: "Digital Health Investment Landscape: Where $28B in VC Went in 2025",
-    desc: "Full breakdown of digital health venture investment by segment, stage, and geography. Identifies the categories gaining momentum and those falling out of favor.",
-    pages: "55 pages", date: "February 2026",
+    emoji: "🤖", tag: "HEALTH POLICY · AI", lock: true,
+    title: "AI Prior Authorization Wars: WISeR, $2B in Disputed Claims, and Hospital Revenue Strategy",
+    desc: "State-by-state WISeR model impact analysis, public CMS-0057-F PA metrics breakdown, BCBS $2B coding AI analysis, denial management infrastructure recommendations, and False Claims Act exposure assessment.",
+    pages: "Premium article", date: "June 2, 2026",
   },
 ];
 
@@ -204,11 +222,11 @@ const STATS = [
 const TESTIMONIALS = [];
 
 const BREAKING_NEWS = [
-  { tag: "AI IN HEALTHCARE", title: "Google Health releases new medical AI research on clinical decision support capabilities", time: "Recent" },
-  { tag: "HOSPITAL FINANCE", title: "Rural hospital systems face continued financial pressure amid labor cost and payer mix challenges", time: "Recent" },
-  { tag: "HEALTH POLICY", title: "Senate HELP Committee advances bipartisan AI in healthcare transparency legislation", time: "Recent" },
-  { tag: "DIGITAL HEALTH", title: "Major health insurer acquires AI-powered care navigation platform in strategic deal", time: "Recent" },
-  { tag: "RESEARCH", title: "NEJM publishes multicenter study on AI-assisted colonoscopy and polyp detection rates", time: "Recent" },
+  { tag: "HIPAA & COMPLIANCE", title: "HHS OCR settles four ransomware HIPAA investigations in April 2026, collecting $1.165M in penalties covering 427,000 exposed patient records", time: "April 23, 2026" },
+  { tag: "HEALTH INFORMATICS", title: "ONC issues first-ever information blocking nonconformity notices to certified EHR developers; nearly 500 million records now exchanged through TEFCA", time: "February 11, 2026" },
+  { tag: "HEALTH POLICY", title: "CMS WISeR Model launches January 1, 2026 — AI-assisted prior authorization now active in Arizona, New Jersey, Ohio, Oklahoma, Texas, and Washington", time: "January 1, 2026" },
+  { tag: "HOSPITAL FINANCE", title: "Strata data: hospital operating margins turned negative in January 2026 at -0.6%, with drug costs rising 7.6% and supply costs 7.8% year-over-year", time: "April 2026" },
+  { tag: "AI IN HEALTHCARE", title: "FDA published revised Clinical Decision Support guidance on January 6, 2026, removing many AI tools from premarket device oversight requirements", time: "January 6, 2026" },
 ];
 
 // ─── SMALL REUSABLE COMPONENTS ────────────────────────────────────────────────
@@ -546,36 +564,42 @@ function HomePage({ setPage }) {
         <div className="section-inner">
           <div className="section-header section-header-row">
             <div>
-              <span className="section-tag">Featured Analysis</span>
-              <h2 className="section-h2">What Is Driving Healthcare&apos;s AI Transformation</h2>
+              <span className="section-tag">Latest Analysis — June 2, 2026</span>
+              <h2 className="section-h2">Current Intelligence from AI Health Intelligence</h2>
             </div>
             <button className="link-more" onClick={() => setPage("Research")}>All articles →</button>
           </div>
           <div className="card-grid card-grid-3">
-            {ARTICLES.filter((a) => a.featured).map((a) => (
-              <div key={a.id} className="card card-featured">
-                <div className="card-img">{a.emoji}</div>
-                <div className="card-body">
-                  <div className="card-category">{a.category}</div>
-                  <div className="card-title">{a.title}</div>
-                  <div className="card-excerpt">{a.excerpt}</div>
-                  <div className="card-meta">
-                    <span className="card-date">{a.date}</span>
-                    <span className="card-read">{a.read}</span>
-                  </div>
+            {/* Featured article — free to read */}
+            <div className="card card-featured" onClick={() => setPage("Article1")} style={{ cursor: "pointer" }}>
+              <div className="card-img">⚖️</div>
+              <div className="card-body">
+                <div style={{ display: "flex", gap: 8, marginBottom: 10, alignItems: "center" }}>
+                  <div className="card-category" style={{ marginBottom: 0 }}>AI IN HEALTHCARE · HEALTH POLICY</div>
+                  <span style={{ background: "rgba(16,185,129,0.12)", color: "#10b981", fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 100, letterSpacing: "0.5px" }}>FREE</span>
+                </div>
+                <div className="card-title">The Governance Reckoning: Why Healthcare&apos;s AI Boom Is Outrunning Its Safeguards</div>
+                <div className="card-excerpt">Hospitals are deploying AI at unprecedented speed. The compliance infrastructure to manage it has not kept pace. From ambient documentation to shadow AI, the gap between adoption and oversight is now a material institutional risk — with real financial, regulatory, and patient safety consequences.</div>
+                <div className="card-meta">
+                  <span className="card-date">June 2, 2026</span>
+                  <span className="card-read">12 min read · Click to read free</span>
                 </div>
               </div>
-            ))}
+            </div>
+            {/* Premium article cards */}
             {ARTICLES.filter((a) => !a.featured).slice(0, 4).map((a) => (
-              <div key={a.id} className="card">
-                <div className="card-img" style={{ height: 140 }}>{a.emoji}</div>
+              <div key={a.id} className="card" onClick={() => setPage("Newsletter")} style={{ cursor: "pointer" }}>
+                <div className="card-img" style={{ height: 140, position: "relative" }}>
+                  <span style={{ fontSize: 40 }}>{a.emoji}</span>
+                  <div style={{ position: "absolute", top: 10, right: 10, background: "rgba(245,158,11,0.9)", color: "#0a1628", fontSize: 10, fontWeight: 800, padding: "3px 10px", borderRadius: 100, letterSpacing: "0.5px" }}>PREMIUM</div>
+                </div>
                 <div className="card-body">
                   <div className="card-category">{a.category}</div>
                   <div className="card-title" style={{ fontSize: 17 }}>{a.title}</div>
                   <div className="card-excerpt" style={{ fontSize: 13, marginBottom: 14 }}>{a.excerpt}</div>
                   <div className="card-meta">
                     <span className="card-date">{a.date}</span>
-                    <span className="card-read">{a.read}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: "#f59e0b" }}>Subscribe to read →</span>
                   </div>
                 </div>
               </div>
@@ -1009,23 +1033,33 @@ function ResearchPage() {
               <button key={t} className={`topic-tab ${tab === t ? "active" : ""}`} onClick={() => setTab(t)}>{t}</button>
             ))}
           </div>
+
+          {/* Published articles note */}
+          <div style={{ background: "rgba(0,212,255,0.05)", border: "1px solid rgba(0,212,255,0.2)", borderRadius: 10, padding: "16px 24px", marginBottom: 28, display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ color: "var(--cyan)", fontSize: 18 }}>📅</span>
+            <div>
+              <div style={{ fontWeight: 600, fontSize: 14, color: "var(--navy)" }}>Published June 2, 2026 — First Edition</div>
+              <div style={{ fontSize: 13, color: "var(--text-light)" }}>AI Health Intelligence is a new publication. All articles below are real, sourced, and evidence-based. No placeholder content.</div>
+            </div>
+          </div>
+
           {REPORTS.map((r, i) => (
             <div key={i} className="report-card">
-              <div className="report-cover">{r.emoji}</div>
+              <div className="report-cover" style={{ fontSize: 48 }}>{r.emoji}</div>
               <div className="report-body">
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
                   <span className="report-tag">{r.tag}</span>
                   {r.lock
                     ? <span className="tag-pill tag-pill-gold">Premium</span>
-                    : <span className="tag-pill tag-pill-green">Free</span>}
+                    : <span className="tag-pill tag-pill-green">Free to Read</span>}
                 </div>
                 <div className="report-title">{r.title}</div>
                 <p className="report-desc">{r.desc}</p>
                 <div className="report-meta">
                   <span className="report-pages">📄 {r.pages} · {r.date}</span>
                   {r.lock
-                    ? <button className="btn btn-primary btn-sm">🔒 Access Premium</button>
-                    : <button className="btn btn-outline btn-sm">Download Free →</button>}
+                    ? <button className="btn btn-primary btn-sm" onClick={() => {}}>🔒 Subscribe to Read</button>
+                    : <button className="btn btn-outline btn-sm" onClick={() => {}}>Read Free Article →</button>}
                 </div>
               </div>
             </div>
@@ -1279,6 +1313,111 @@ function ContactPage() {
   );
 }
 
+// ─── PAGE: FREE ARTICLE — THE GOVERNANCE RECKONING ───────────────────────────
+
+function Article1Page({ setPage }) {
+  const A = {
+    title: "The Governance Reckoning: Why Healthcare's AI Boom Is Outrunning Its Safeguards",
+    sub: "Hospitals Are Deploying AI at Unprecedented Speed. The Compliance Infrastructure to Manage It Has Not Kept Pace. That Gap Is Now a Material Risk.",
+    author: "AI Health Intelligence Editorial Team",
+    date: "June 2, 2026",
+    category: "AI IN HEALTHCARE · HEALTH POLICY",
+    read: "12 min read",
+  };
+  return (
+    <div style={{ background: "#f8fafc", minHeight: "100vh" }}>
+      {/* Article header */}
+      <div style={{ background: "var(--navy)", padding: "60px 24px 48px" }}>
+        <div style={{ maxWidth: 800, margin: "0 auto" }}>
+          <button onClick={() => setPage("Home")} style={{ background: "none", border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.6)", borderRadius: 6, padding: "6px 14px", fontSize: 13, cursor: "pointer", marginBottom: 24 }}>← Back</button>
+          <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 16, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--cyan)" }}>{A.category}</span>
+            <span style={{ background: "rgba(16,185,129,0.15)", color: "#10b981", fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 100 }}>FREE ARTICLE</span>
+          </div>
+          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(26px,4vw,44px)", color: "white", lineHeight: 1.2, marginBottom: 18 }}>{A.title}</h1>
+          <p style={{ fontSize: 18, color: "rgba(255,255,255,0.65)", lineHeight: 1.6, marginBottom: 28, fontWeight: 300 }}>{A.sub}</p>
+          <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>By {A.author}</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>·</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>{A.date}</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>·</span>
+            <span style={{ fontSize: 13, color: "var(--cyan)" }}>{A.read}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Article body */}
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: "48px 24px 80px" }}>
+        <div style={{ background: "white", borderRadius: 16, border: "1px solid #e2e8f0", padding: "48px", lineHeight: 1.85, color: "#1e293b", fontSize: 16 }}>
+
+          {/* Executive Summary */}
+          <div style={{ background: "#f0f9ff", border: "1px solid #bae6fd", borderRadius: 10, padding: "24px 28px", marginBottom: 36 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "#0369a1", marginBottom: 10 }}>Executive Summary</div>
+            <p style={{ margin: 0, color: "#0c4a6e", lineHeight: 1.75 }}>The first half of 2026 has produced a paradox at the center of American healthcare: artificial intelligence tools are being adopted faster than at any point in the industry's history, while the institutional structures required to govern, audit, and safely oversee those tools remain years behind. Major electronic health record vendors have embedded AI into clinical workflows at scale. Large health systems are projecting hundreds of millions in AI-driven cost savings. The FDA has relaxed oversight of a significant class of clinical decision support software. And yet, a parallel set of developments — documented safety failures, a surge in unauthorized AI use by clinical staff, mounting state-level regulation, and a nascent but serious payer-provider AI conflict — suggests the industry is approaching a governance crossroads it can no longer defer.</p>
+          </div>
+
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, color: "#0a1628", margin: "36px 0 16px", paddingBottom: 12, borderBottom: "2px solid #f1f5f9" }}>The FDA's January 2026 Regulatory Shift</h2>
+          <p style={{ marginBottom: 18 }}>On January 6, 2026, the FDA published revised final guidance on Clinical Decision Support Software. FDA Commissioner Martin Makary announced the changes at the Consumer Electronics Show, framing them as necessary for the agency to "adapt with the times." The practical effect is significant: software that provides recommendations a clinician can independently review falls outside the agency's medical device oversight. In plain terms, a large class of AI tools that provide diagnostic suggestions, clinical summaries, and treatment recommendations can now reach hospitals without premarket FDA review.</p>
+          <p style={{ marginBottom: 18 }}>The guidance creates a meaningful opening for AI developers and a meaningful compliance question for hospitals. Tools that previously existed in a regulatory gray zone are now clearly outside FDA purview — but that designation does not eliminate the hospital's responsibility for ensuring those tools are clinically valid, bias-tested, and integrated safely.</p>
+
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, color: "#0a1628", margin: "36px 0 16px", paddingBottom: 12, borderBottom: "2px solid #f1f5f9" }}>EHR Vendors Move to Consolidate the AI Market</h2>
+          <p style={{ marginBottom: 18 }}>The ambient documentation market has been reshaped by a single structural shift: Epic and Oracle Health are embedding AI natively into their platforms. As of mid-2025, Epic's ambient documentation integration — primarily through its DAX Copilot partnership — had been deployed across 62.6 percent of Epic hospitals. Epic subsequently launched native AI Charting in February 2026, directly threatening standalone ambient scribe vendors including Abridge and Ambience. Epic is launching more than 150 AI features built directly into its platform in 2026.</p>
+          <p style={{ marginBottom: 18 }}>For hospital technology leaders, this dynamic has real procurement implications. Point-solution AI vendors that built businesses on top of EHR platforms now face competitive pressure from the platforms themselves. The clinical evidence underlying ambient documentation is real and accumulating. At Aultman Health System in Northeast Ohio, deployment of ambient AI within Oracle Cerner resulted in clinicians saving 30 to 60 minutes per day on documentation, with some reporting capacity to see three to five additional patients daily.</p>
+
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, color: "#0a1628", margin: "36px 0 16px", paddingBottom: 12, borderBottom: "2px solid #f1f5f9" }}>The Financial Stakes and the Billing War</h2>
+          <p style={{ marginBottom: 18 }}>HCA Healthcare projected $400 million in 2026 cost savings from AI-driven revenue management. UnitedHealth Group projects nearly $1 billion in AI savings, with $1.5 billion in AI investment planned for 2026. These projections reflect AI being justified primarily on financial grounds, not clinical outcome grounds.</p>
+          <p style={{ marginBottom: 18 }}>But the financial dynamics have a counterweight. Blue Cross Blue Shield has released an analysis suggesting that AI-enabled coding practices may be responsible for more than $2 billion in additional claims spending nationwide. Centene raised concerns that hospitals are using AI revenue software to aggressively trigger reimbursement. The result is an AI arms race on both sides of the claims process — hospitals maximizing capture, payers denying claims — with patients caught between competing algorithms.</p>
+
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, color: "#0a1628", margin: "36px 0 16px", paddingBottom: 12, borderBottom: "2px solid #f1f5f9" }}>The Shadow AI Crisis</h2>
+          <p style={{ marginBottom: 18 }}>The most urgent operational challenge facing hospital executives in 2026 is not AI deployment. It is shadow AI — the use of generative AI tools by clinical staff outside institutional oversight, without IT review, security assessment, or HIPAA-compliant Business Associate Agreements.</p>
+          <p style={{ marginBottom: 18 }}>A 2025 IBM study identified that 97 percent of organizations that had experienced an AI-related security incident lacked proper AI access controls, and 63 percent of organizations surveyed lacked AI governance policies. A mid-sized health system discovered through a security audit that 23 percent of clinicians were regularly using ChatGPT for documentation tasks. The average healthcare security breach cost $7.4 million in 2025.</p>
+
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, color: "#0a1628", margin: "36px 0 16px", paddingBottom: 12, borderBottom: "2px solid #f1f5f9" }}>Health Policy: Federal Deregulation, State Complexity</h2>
+          <p style={{ marginBottom: 18 }}>The regulatory environment governing healthcare AI in 2026 is simultaneously more permissive at the federal level and more demanding at the state level. The FDA's January guidance reduces federal oversight of clinical decision support software. The White House AI Action Plan, released March 20, 2026, preserves state authority to regulate AI in areas of reserved policy power — meaning state healthcare AI laws proliferate.</p>
+          <p style={{ marginBottom: 18 }}>Texas enacted the Responsible Artificial Intelligence Governance Act, effective January 1, 2026, requiring patients to be informed when AI supports healthcare services and prohibiting AI tools from independently diagnosing or making treatment decisions without clinician involvement. At least 25 states have issued guidance based on the NAIC model bulletin on AI in insurance.</p>
+
+          {/* Key Takeaways box */}
+          <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: "28px", margin: "36px 0" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "#64748b", marginBottom: 16 }}>Key Takeaways</div>
+            {[
+              "The FDA's January 2026 guidance removes a large class of AI clinical decision support tools from premarket review — but does not eliminate hospital liability for their safe deployment.",
+              "EHR vendors including Epic and Oracle Health are embedding AI natively, threatening standalone vendors and potentially stranding recent AI contracts.",
+              "UnitedHealth projects $1B in AI savings; HCA $400M. The BCBS $2B coding claims analysis signals regulatory scrutiny of AI revenue cycle tools.",
+              "Shadow AI is a current HIPAA breach risk: 63% of organizations lack AI governance policies; 23% of clinicians in one audit used ChatGPT for documentation.",
+              "Federal deregulation plus state AI law proliferation creates a patchwork compliance environment that multi-state systems must map explicitly.",
+              "The measure of AI success is shifting from adoption to governance: can your AI tools be audited, monitored, and trusted?"
+            ].map((t, i) => (
+              <div key={i} style={{ display: "flex", gap: 12, marginBottom: 12, alignItems: "flex-start" }}>
+                <span style={{ color: "#00a8cc", fontWeight: 700, flexShrink: 0 }}>→</span>
+                <span style={{ fontSize: 15, color: "#334155", lineHeight: 1.6 }}>{t}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Sources */}
+          <div style={{ borderTop: "1px solid #e2e8f0", paddingTop: 28, marginTop: 28 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "#94a3b8", marginBottom: 14 }}>Sources</div>
+            <div style={{ fontSize: 13, color: "#64748b", lineHeight: 1.8 }}>
+              FDA: Revised Clinical Decision Support Software guidance, January 6, 2026 · STAT News: Epic launches AI Charting, February 2026 · HIT Consultant: Aultman Health Nabla deployment, January 2026 · Reuters/Maryland Daily Record: HCA $400M, UnitedHealth $1B AI savings projections, March 2026 · PYMNTS: Healthcare Billing Wars AI analysis, March 2026 · IBM: 2025 AI security incident study · Wolters Kluwer: Shadow AI in healthcare report 2026 · Censinet: Texas RAIGA, December 2025 · KFF: AI in prior authorization, April 2026 · Manatt Health: Health AI Policy Tracker, April 2026
+            </div>
+          </div>
+        </div>
+
+        {/* Premium upsell */}
+        <div style={{ marginTop: 32, background: "var(--navy)", borderRadius: 16, padding: "40px", textAlign: "center", border: "1px solid rgba(0,212,255,0.2)" }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)", marginBottom: 12 }}>Premium Intelligence</div>
+          <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, color: "white", marginBottom: 12 }}>Read the Full Analysis Suite</h3>
+          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 15, marginBottom: 28, maxWidth: 480, margin: "0 auto 28px", lineHeight: 1.65 }}>Four additional premium articles are published today: HIPAA Security Rule compliance guide, hospital margins financial framework, AI prior authorization strategy, and shadow AI governance playbook.</p>
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+            <button className="btn btn-primary" onClick={() => setPage("Newsletter")}>Subscribe — $29/month</button>
+            <button className="btn btn-outline-white" onClick={() => setPage("Research")}>View all articles</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── APP (ROOT) ───────────────────────────────────────────────────────────────
 
 export default function Page() {
@@ -1296,6 +1435,7 @@ export default function Page() {
     Premium: <PremiumPage setPage={setPage} />,
     Advertising: <AdvertisingPage setPage={setPage} />,
     Contact: <ContactPage />,
+    Article1: <Article1Page setPage={setPage} />,
   };
 
   return (
