@@ -465,7 +465,24 @@ function ResearchPage({ setPage }) {
             ))}
           </div>
 
-          {/* Article cards */}
+      {/* Daily newsletter editions */}
+      <div style={{ background: "var(--navy)", borderRadius: 16, padding: "36px 40px", marginBottom: 40, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--cyan)", marginBottom: 10 }}>Daily Newsletter</div>
+          <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, color: "white", marginBottom: 10 }}>AI Health Intelligence Daily Editions</h3>
+          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, lineHeight: 1.65, maxWidth: 520 }}>
+            Every day our system automatically fetches the latest healthcare AI, policy, finance, and HIPAA news and publishes a new edition. All editions are free and open access.
+          </p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "flex-start" }}>
+          <a href="/newsletter-drafts" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--cyan)", color: "#0a1628", fontWeight: 700, fontSize: 14, padding: "13px 24px", borderRadius: 8, textDecoration: "none" }}>
+            📰 Read Daily Editions →
+          </a>
+          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", paddingLeft: 4 }}>Published automatically every day</span>
+        </div>
+      </div>
+
+      {/* Article cards */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 60 }}>
             {filtered.map((a) => (
               <div key={a.id} onClick={() => setPage(a.id)} style={{ background: "white", border: "1px solid #e2e8f0", borderRadius: 12, padding: "28px 32px", display: "grid", gridTemplateColumns: "64px 1fr auto", gap: 24, alignItems: "center", cursor: "pointer", transition: "all 0.2s" }}
@@ -559,7 +576,20 @@ function NewsletterPage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
+      {/* Past editions */}
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="section-inner">
+          <div style={{ background: "#f0f9ff", border: "1px solid #bae6fd", borderRadius: 12, padding: "28px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: 16, color: "#0a1628", marginBottom: 6 }}>📰 Read Published Editions</div>
+              <p style={{ color: "#0369a1", fontSize: 14, margin: 0, lineHeight: 1.6 }}>All past daily editions are free and publicly available. A new edition is published automatically every day.</p>
+            </div>
+            <a href="/newsletter-drafts" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#0a1628", color: "white", fontWeight: 700, fontSize: 14, padding: "12px 22px", borderRadius: 8, textDecoration: "none", whiteSpace: "nowrap" }}>
+              Browse All Editions →
+            </a>
+          </div>
+        </div>
+      </section>
       <section className="section section-dark" style={{ paddingTop: 60, paddingBottom: 60 }}>
         <div className="section-inner text-center">
           <h2 className="section-h2">Subscribe for Free Updates</h2>
@@ -703,9 +733,9 @@ function ContactPage() {
               <p style={{ color: "var(--text-light)", lineHeight: 1.7, marginBottom: 32 }}>Whether you have a story tip, want to discuss editorial, or are interested in a partnership — every inquiry receives a personal response.</p>
               <div className="contact-methods">
                 {[
-                  { emoji: "👩‍💼", label: "Founder and Editor", val: "Ferdousi Zaman, DrPH Candidate · ferdousi@aihealthintelligence.com" },
-                  { emoji: "📧", label: "Editorial", val: "editorial@aihealthintelligence.com" },
-                  { emoji: "🤝", label: "Partnerships", val: "partnerships@aihealthintelligence.com" },
+                  { emoji: "👩‍💼", label: "Founder and Editor", val: "Ferdousi Zaman, DrPH Candidate · zaman1ferdousi@gmail.com" },
+                  { emoji: "📧", label: "Editorial", val: "zaman1ferdousi@gmail.com" },
+                  { emoji: "🤝", label: "Partnerships", val: "zaman1ferdousi@gmail.com" },
                 ].map((m) => (
                   <div key={m.label} className="contact-method">
                     <span className="contact-method-icon">{m.emoji}</span>
